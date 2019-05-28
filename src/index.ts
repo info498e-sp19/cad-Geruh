@@ -1,10 +1,8 @@
-import 'bootstrap'; //bootstrap.js for button toggling
-
-import {Model} from './model';
-import {View as CanvasView} from './view-canvas';
-
+import "bootstrap"; //bootstrap.js for button toggling
+import { Model } from "./model";
+import { CanvasController } from "./canvas-controller";
+import { TextController } from "./text-controller";
 
 let model = new Model();
-let canvasView = new CanvasView(model);
-
-//TODO: more views and controllers here...
+let canvasController = new CanvasController(model);
+let textController = new TextController(model);
