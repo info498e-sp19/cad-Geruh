@@ -1,11 +1,6 @@
-import { DrawableShape as Shape } from './shapes';
-import { Observer } from './observer';
-
-export interface Subject {
-  notifyAll(): void;
-  registerObserver(obs: Observer): void;
-  unRegisterObserver(obs: Observer): void;
-}
+import { DrawableShape as Shape } from "./shapes";
+import { Observer } from "./observer";
+import { Subject } from "./subject";
 
 /**
  * The CAD drawing model currently being created
@@ -27,19 +22,19 @@ export class Model implements Subject {
     return null; //return last shape
   }
 
-  addShape(newShape: Shape) {
+  addShape(newShape: Shape): void {
     this.shapes.push(newShape); //add to front so act first when arriving
     this.notifyAll();
   }
 
-  deleteShape(shape: Shape | null) {
+  deleteShape(shape: Shape | null): void {
     if (shape) {
       this.shapes.splice(this.shapes.indexOf(shape), 1);
       this.notifyAll();
     }
   }
 
-  updateShapeLocation(shape: Shape, x: number, y: number) {
+  updateShapeLocation(shape: Shape, x: number, y: number): void {
     shape.setPosition(x, y);
     this.notifyAll();
   }
@@ -50,12 +45,12 @@ export class Model implements Subject {
   }
 
   //Subject
-  registerObserver(newObserver: Observer) {
+  registerObserver(newObserver: Observer): void {
     this.observers.push(newObserver);
   }
 
   notifyAll(): void {
-    this.observers.forEach((observer) => observer.notify());
+    this.observers.forEach(observer => observer.notify());
   }
   unRegisterObserver(deleteObserver: Observer): void {
     let index = this.observers.indexOf(deleteObserver);
